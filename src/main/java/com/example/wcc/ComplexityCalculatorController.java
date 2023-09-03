@@ -55,7 +55,7 @@ public class ComplexityCalculatorController {
             }
 
             // Calculate the total complexity using Sj, Wt, Wi, Wn, W, and Cr
-            int complexity = sj * wt * wi * wn * w * Cr;
+            int complexity = (sj * w) + Cr;
 
             totalComplexity += complexity;
         }
