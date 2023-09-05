@@ -15,10 +15,6 @@ public class ComplexityCalculatorController {
         String[] lines = code.split("\n");
         int totalComplexity = 0;
 
-        int wi = 1; // Inheritance level of statements
-        int wn = 1; // Nesting level of control structure
-        int w = wi * wn; // Combined weight
-
         for (String line : lines) {
 
             // Remove curly braces, brackets, and access modifiers
@@ -28,11 +24,45 @@ public class ComplexityCalculatorController {
             cleanedLine = cleanedLine.replaceAll("//.*|/\\*(.|[\\r\\n])*?\\*/", "");
 
             // Calculate Sj: size of the executable statement (count of tokens)
-            int sj = cleanedLine.split("\\s+").length; // Use cleanedLine instead of line
+            int sj = cleanedLine.split("\\s+").length;
 
-            // Calculate Wt: total weight of the executable statement
-            // For simplicity, assuming Wn = Wi = Wc = 1 (you can refine this logic)
-            int wt = 1;
+            // Calculate Wc: Type of control structure
+            int wc = 0; // Default weight for sequential code
+
+            if (cleanedLine.contains("if") || cleanedLine.contains("else if") || cleanedLine.contains("else")) {
+                wc = 1; // Branching control structure
+            } else if (cleanedLine.contains("for") || cleanedLine.contains("while") || cleanedLine.contains("do")) {
+                wc = 2; // Iterative control structure
+            } else if (cleanedLine.contains("switch")) {
+                int n = cleanedLine.split("case").length - 1;
+                wc = n; // Weight for switch cases
+            }
+
+            // Calculate Wn: Nesting level of control structure
+            int nestingLevel = 0; // Reset nesting level for each line
+            if (cleanedLine.contains("{")) {
+                nestingLevel++;
+            } else if (cleanedLine.contains("}")) {
+                nestingLevel--;
+            }
+
+            int wn = 0; // Default weight for sequential statements
+            if (nestingLevel == 0) {
+                wn = 1; // Statements inside the outermost level of control structures
+            } else if (nestingLevel == 1) {
+                wn = 2; // Statements inside the second level of control structures
+            } else if (nestingLevel == 2) {
+                wn = 3; // Statements inside the third level of control structures
+            }
+
+            // Calculate Wi: Inheritance level of statements
+            int wi = 0; // Default weight for statements inside derived classes
+
+            if (cleanedLine.contains("FirstDerivedClass")) {
+                wi = 1; // Set the weight to 1 for statements inside the first derived class
+            } else if (cleanedLine.contains("SecondDerivedClass")) {
+                wi = 2; // Set the weight to 2 for statements inside the second derived class
+            }
 
             // Calculate Cr: Recursion complexity
             int Cr = 1; // Default complexity for non-recursive statements
@@ -54,7 +84,10 @@ public class ComplexityCalculatorController {
                 }
             }
 
-            // Calculate the total complexity using Sj, Wt, Wi, Wn, W, and Cr
+            // Calculate W: Combined weight
+            int w = wn + wc + wi;
+
+            // Calculate the total complexity using Sj, W, and Cr
             int complexity = (sj * w) + Cr;
 
             totalComplexity += complexity;
@@ -62,7 +95,3 @@ public class ComplexityCalculatorController {
         return totalComplexity;
     }
 }
-///
-
-
-
