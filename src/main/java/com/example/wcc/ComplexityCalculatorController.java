@@ -73,12 +73,12 @@ public class ComplexityCalculatorController {
 
 
             // Calculate Cr: Recursion complexity
-            int Cr = 1; // Default complexity for non-recursive statements
+            int cr = 1; // Default complexity for non-recursive statements
 
             // Check for recursion
             if (cleanedLine.contains("return")) {
                 if (cleanedLine.contains("calculateFactorial")) {
-                    Cr = 3; // Complexity for return with recursive call
+                    cr = 3; // Complexity for return with recursive call
                 }
                 // Check for additional recursive calls
                 int additionalCalls = 0;
@@ -88,7 +88,7 @@ public class ComplexityCalculatorController {
                     index = cleanedLine.indexOf("return", index + 1);
                 }
                 if (additionalCalls > 1) {
-                    Cr += additionalCalls - 1; // Increment Cr by (additionalCalls - 1)
+                    cr += additionalCalls - 1; // Increment Cr by (additionalCalls - 1)
                 }
             }
 
@@ -96,7 +96,7 @@ public class ComplexityCalculatorController {
             int w = wn + wc + wi;
 
             // Calculate the total complexity using Sj, W, and Cr
-            int complexity = (sj * w) + Cr;
+            int complexity = (sj * w) + (cr + ci);
 
             totalComplexity += complexity;
         }
