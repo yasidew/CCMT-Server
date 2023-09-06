@@ -64,6 +64,14 @@ public class ComplexityCalculatorController {
                 wi = 2; // Set the weight to 2 for statements inside the second derived class
             }
 
+            int ci = 0; // Default value for system input output statements
+            if(cleanedLine.contains("System.out.println") || cleanedLine.contains("System.out.print")){
+                ci = 1;  // set weight 1 if there is a System.out.println statement
+            }else{
+                ci =0;
+            }
+
+
             // Calculate Cr: Recursion complexity
             int Cr = 1; // Default complexity for non-recursive statements
 
