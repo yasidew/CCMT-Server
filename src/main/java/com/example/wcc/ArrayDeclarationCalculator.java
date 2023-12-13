@@ -28,7 +28,7 @@ public class ArrayDeclarationCalculator {
             cleanedLine = cleanedLine.replaceAll("//.*|/\\*(.|[\\r\\n])*?\\*/", "");
 
             // Calculate Sj: size of the executable statement (count of tokens)
-            int sj = cleanedLine.split("\\s+").length;
+//            int sj = cleanedLine.split("\\s+").length;
 
             // Calculate Wt: total weight of the executable statement
             int wt = 1;
@@ -46,7 +46,7 @@ public class ArrayDeclarationCalculator {
                     DdSum += size;
                 }
 
-                System.out.println("Sj values = " + sj);
+//                System.out.println("Sj values = " + sj);
                 System.out.println("Nd Value = " + ndValue);
                 System.out.println("Dd Sum = " + DdSum);
 
@@ -71,7 +71,7 @@ public class ArrayDeclarationCalculator {
 //
 //            totalComplexity += (sj + (ndValue*DdSum));
 
-            totalComplexity += (sj + ca);
+            totalComplexity += ( ca);
         }
         return totalComplexity;
 

@@ -18,20 +18,20 @@ public class ArrayDeclarationCalculatorTest {
     public void testCalculateArrayDeclarationComplexity_WithEmptyCode() {
         String code = "";
         int complexity = calculator.calculateArrayDeclarationComplexity(code);
-        assertEquals(1, complexity);
+        assertEquals(0, complexity);
     }
 
     @Test
     public void testCalculateArrayDeclarationComplexity_WithSingleDimensionArray() {
         String code = "int[] arr = new int[5];";
         int complexity = calculator.calculateArrayDeclarationComplexity(code);
-        assertEquals(10, complexity);
+        assertEquals(5, complexity);
     }
 
     @Test
     public void testCalculateArrayDeclarationComplexity_WithMultiDimensionArray() {
         String code = "int[][] arr = new int[5][10];";
         int complexity = calculator.calculateArrayDeclarationComplexity(code);
-        assertEquals(35, complexity);
+        assertEquals(30, complexity);
     }
 }

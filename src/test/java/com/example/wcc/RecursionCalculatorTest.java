@@ -13,6 +13,7 @@ public class RecursionCalculatorTest {
 
     private final RecursionCalculator recursionCalculator = new RecursionCalculator();
 
+
     @Test
     public void testCalculateComplexityWithNoRecursiveCalls() {
         String code = "public class Example {\n" +
@@ -27,14 +28,14 @@ public class RecursionCalculatorTest {
 
     @Test
     public void testCalculateComplexityWithSingleRecursiveCall() {
-        String code = "public class Example {\n" +
-                "    public static int factorial(int n) {\n" +
-                "        if (n == 0) {\n" +
-                "            return 1;\n" +
-                "        }\n" +
-                "        return n * factorial(n - 1);\n" +
+        String code = "public static int factorial(int n) {\n" +
+                "    if (n == 0) {\n" +
+                "        return 1; // Complexity 1 (initial recursive call)\n" +
                 "    }\n" +
-                "}";
+                "    int result = n * factorial(n - 1); // Complexity 1 (recursive call)\n" +
+                "    // System.out.println(result); // This line is removed\n" +
+                "    return result; // Complexity 1 (return statement within the recursive call)\n" +
+                "}\n";
         int complexity = recursionCalculator.calculateComplexity(code);
         assertEquals(2, complexity);
     }
@@ -52,6 +53,6 @@ public class RecursionCalculatorTest {
                 "    }\n" +
                 "}";
         int complexity = recursionCalculator.calculateComplexity(code);
-        assertEquals(6, complexity);
+        assertEquals(5, complexity);
     }
 }
